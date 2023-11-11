@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+  --black:          #333333;
+  --red:         #c84a4a;
+  --yelow:          #dab500;
+  --green:          #91b823;
+  --dark-blue:     #241b48;
+  --blue:     #cbc9e0;
+  --light-blue:     #e4e5f3;
+  --btn-color:     #4c3998;
+  --header-color:     #382584;
+  --body-color:     #f4f8ff;
+  --scroll-color:     #8f8bac;
+  --whiteLightness: 100%;
+  --white:          hsl(0, 0%, var(--whiteLightness));
+  --grayF4:         hsl(0, 0%, calc(var(--whiteLightness) - 4%));
+  --greyF3:         hsl(0, 0%, calc(var(--whiteLightness) - 5%));
+  --greyEC:         hsl(0, 0%, calc(var(--whiteLightness) - 7%));
+  --greyD9:         hsl(0, 0%, calc(var(--whiteLightness) - 15%));
+  --greyC4:         hsl(0, 0%, calc(var(--whiteLightness) - 23%));
+  --grey99:         hsl(0, 0%, calc(var(--whiteLightness) - 40%));
+  --grey66:         hsl(0, 0%, calc(var(--whiteLightness) - 60%));
+}
+
+html {
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	-webkit-box-sizing: inherit;
+	        box-sizing: inherit;
+          color: var(--dark-blue);
+}
+
+*,
+html *
+{
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-color) white;
+}
+
+*::-webkit-scrollbar,
+html *::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-thumb,
+html *::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-color);
+}
+
+*::-webkit-scrollbar-track,
+html *::-webkit-scrollbar-track {
+  background: white;
+}
+
+h1, h2, h3, p{
+  margin: 0;
+}
+
+img{
+  max-width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type='number'],
+input[type="number"]:hover,
+input[type="number"]:focus {
+    appearance: none;
+    -moz-appearance: textfield;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: var(--body-color);
+  font-size: 17px;
+  line-height: 130%;
+  font-family: 'Roboto', serif;
+}
+
+.react-tagsinput {
+  background-color: var(--white);
+  border: 1px solid var(--dark-blue); 
+  border-radius: 8px;
+  font-size: 17px;
+  color: var(--dark-blue);
+  overflow: hidden;
+  padding: 10px;
+}
+
+/*.react-tagsinput--focused {
+  border-color: #a5d24a;
+}*/
+
+.react-tagsinput-tag {
+  background-color: var(--btn-color);
+  border-radius: 4px;
+  color: var(--white);
+  display: inline-block;
+  font-family: 'Roboto', sans-serif;
+  font-size: 17px;
+  margin-right: 8px;
+  padding: 5px;
+}
+
+.react-tagsinput-remove {
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 7px;
+}
+
+.react-tagsinput-tag a::before {
+  content: "  x";
+  color: var(--white);
+}
+
+.react-tagsinput-input {
+  background: transparent;
+  border: 0;
+  color: var(--dark-blue);
+  font-family: 'Roboto', sans-serif;
+  font-size: 17px;
+  outline: none;
+  padding: 5px;
+}
+
+.deactivate{
+  pointer-events: none;
+}
+
+.stop-scroll{
+  overflow-y: hidden;
+}
+
+
+

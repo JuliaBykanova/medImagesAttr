@@ -1,0 +1,16 @@
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.link{
+  min-width: 130px;
+  padding: 11px 18px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--white);
+  background-color: var(--btn-color);
+}
