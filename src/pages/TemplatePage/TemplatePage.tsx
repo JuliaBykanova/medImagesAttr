@@ -13,6 +13,7 @@ import { setClearAttr, setFilter, setTemplate } from '../../redux/templates/temp
 import { MultilevelSelect } from '../../components/MultilevelSelect';
 import { ActBtn } from '../../components/ActBtn';
 import { FilterInput } from '../../components/FilterInput';
+import { getTemplates } from '../../redux/templates/action-creators';
 
 export function TemplatePage() {
 
@@ -76,64 +77,11 @@ export function TemplatePage() {
     dispatch(setIsLink(true));
   }, []);
 
-  const rows: IRow[] = [
-    {
-      rowItem: [
-        {
-          text: 'pictureName'
-        },
-        {
-          text: 'Один признак Линии Ретикулярные'
-        },
-      ]
-    },
-    {
-      rowItem: [
-        {
-          text: 'pictureName2'
-        },
-        {
-          text: ''
-        },
-      ]
-    },
-    {
-      rowItem: [
-        {
-          text: 'pictureName3'
-        },
-        {
-          text: ''
-        },
-      ]
-    },
-    {
-      rowItem: [
-        {
-          text: 'pictureName4'
-        },
-        {
-          text: ''
-        },
-      ]
-    },
-  ];
-
   const {templates, filter} = useSelector((state: IRootState) => state.templates);
 
   useEffect(() => {
-    dispatch(setHeadItems([
-      {
-        text: 'Имя'
-      },
-      {
-        text: 'Аттрибут'
-      },
-    ]));
-
-    dispatch(setBodyRows(rows));
-
-  }, [pageSize, offset])
+    dispatch(getTemplates(pageSize, offset, filter));
+  }, [pageSize, offset, filter])
 
   useEffect(() => {
     const template = templates.find(item => item.name===idParam);

@@ -4,22 +4,22 @@ import { setBodyRows, setHeadItems, setPagination } from '../table/table-reducer
 import { templatesAPI } from '../../api/attributeAPI';
 import { setTemplates } from './templates-reducer';
 
-export const getTemplates = (limit: number, offset: number) => async (dispatch: Dispatch) => {
+export const getTemplates = (limit: number, offset: number, filter?: string) => async (dispatch: Dispatch) => {
   try {
-    const res = await templatesAPI.getTemplatesData(limit, offset);
+    const res = await templatesAPI.getTemplatesData(limit, offset, filter);
     const result: ITemplate[] = [];
     const bodyRows: IRow[] = [];
-    for (let temlate of res.templates){
+    for (let temlate of res.data){
 
-      result.push({name: temlate.templateName, url: temlate.templateDescription, attribute: temlate.lifetime});
+      result.push({name: temlate.file_name, url: temlate.url, attribute: temlate.attributes});
       
       bodyRows.push({
         rowItem : [
           {
-            text: temlate.templateName,
+            text: temlate.file_name,
           },
           {
-            text: temlate.templateDescription,
+            text: temlate.attributes ? temlate.attributes.join(' ') : '',
           },
         ],
       });
