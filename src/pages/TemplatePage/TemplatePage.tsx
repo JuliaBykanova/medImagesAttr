@@ -1179,7 +1179,7 @@ export function TemplatePage() {
 
   function handleChangeFilter(event: ChangeEvent<HTMLInputElement>){
     dispatch(setFilter(event.currentTarget.value));
-  }
+  };
 
   return (
       <div className={styles.container}>
