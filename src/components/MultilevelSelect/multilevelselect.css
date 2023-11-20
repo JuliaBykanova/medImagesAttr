@@ -16,6 +16,10 @@
   background-color: var(--white);
 }
 
+.item:not(:last-child){
+  margin-bottom: 6px;
+}
+
 .selectedItem{
   width: 100%;
   padding: 4px;

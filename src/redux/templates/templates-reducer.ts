@@ -7,6 +7,7 @@ const initialState: IInitialStateTemplates = {
   attribute: [],
   openAttr: [],
   filter: '',
+  selectedItem: '',
 }
 
 export const templatesReducer = createSlice({
@@ -33,10 +34,15 @@ export const templatesReducer = createSlice({
       ...state,
       filter: action.payload,
     }),
+    setSelectedItem: (state, action: PayloadAction<string>) => ({
+      ...state,
+      selectedItem: action.payload,
+    }),
     setClearAttr: (state,) => ({
       ...state,
       openAttr: [],
       attribute: [],
+      selectedItem: '',
     }),
   },
 });
@@ -48,6 +54,7 @@ export const {
   setOpenAttr,
   setClearAttr,
   setFilter,
+  setSelectedItem,
 } = templatesReducer.actions;
 
 export default templatesReducer.reducer;

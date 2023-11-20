@@ -33,7 +33,8 @@ export interface IInitialStateTemplates{
   template: ITemplate;
   attribute: string[];
   openAttr: string[];
-  filter: string
+  filter: string;
+  selectedItem: string;
 }
 
 export interface ITemplate{

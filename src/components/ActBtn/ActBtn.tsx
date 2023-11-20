@@ -1,6 +1,11 @@
 import React from 'react';
 import styles from './actbtn.css';
 import classNames from 'classnames';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { IRootState, useAppDispatch } from '../../redux/redux-store';
+import { setClearAttr } from '../../redux/templates/templates-reducer';
+import { useNavigate } from 'react-router';
 
 interface IActBtn{
   text: string;
@@ -10,6 +15,11 @@ interface IActBtn{
 }
 
 export function ActBtn({text, type, handlePagination, isDisabled}: Readonly<IActBtn>) {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const attribute = useSelector((state: IRootState) => state.templates.attribute);
+  const name = useSelector((state: IRootState) => state.templates.template.name);
 
   const classes = classNames(
     { 
@@ -21,14 +31,35 @@ export function ActBtn({text, type, handlePagination, isDisabled}: Readonly<IAct
     }
   );
 
+  const config = {
+    headers: {
+      accept: 'application/json',
+      "X-User-Id": "3",
+    },
+  };
+
+  const body = {
+    "attributes": attribute,
+  }
+
   function handleClickLoad(){
     location.reload(); 
   };
 
+  function handleClickSave(){
+    axios.post(`https://9500-85-143-112-90.ngrok-free.app/image/update/${name}`, body, config)
+    .then(() => {
+      dispatch(setClearAttr());
+      navigate('/templates');
+    })
+    .catch((err) => console.log(err));
+  }
 
   const fool = () => {/* this arrow function is empty */};
 
-  const isPagination = type==='pagNext' || type==='pagBack' ? handlePagination : fool;
+  const isSave = type==='save' ? handleClickSave : fool;
+
+  const isPagination = type==='pagNext' || type==='pagBack' ? handlePagination : isSave;
 
   const isLoad = type==='load' ? handleClickLoad : isPagination;
 

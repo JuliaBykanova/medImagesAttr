@@ -1,15 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './multilevelselect.css';
 import { useSelector } from 'react-redux';
 import { IRootState, useAppDispatch } from '../../redux/redux-store';
-import { setAttribute, setOpenAttr } from '../../redux/templates/templates-reducer';
+import { setAttribute, setOpenAttr, setSelectedItem } from '../../redux/templates/templates-reducer';
 import { generateRandomString } from '../../utils/generateRandomIndex';
 
-interface ISelectItem{
+export interface ISelectItem{
   id: string;
   name: string;
   children?: ISelectItem[];
-  attr?: string[];
 }
 
 interface IMultilevelSelect{
@@ -19,7 +18,7 @@ interface IMultilevelSelect{
 export function MultilevelSelect({ items}: Readonly<IMultilevelSelect>) {
   const dispatch = useAppDispatch();
 
-  const {openAttr, attribute} = useSelector((state: IRootState) => state.templates);
+  const {openAttr, selectedItem} = useSelector((state: IRootState) => state.templates);
 
   function handleClickOpen(e: React.MouseEvent<HTMLButtonElement>){
     const newOpenAttr = [...openAttr];
@@ -33,7 +32,26 @@ export function MultilevelSelect({ items}: Readonly<IMultilevelSelect>) {
   };
 
   function handleClickAttribute(e: React.MouseEvent<HTMLDivElement>){
-    dispatch(setAttribute(e.currentTarget.title.split('+')));
+    const attrAray: Array<string> = [];
+    const target = e.currentTarget;
+    attrAray.unshift(target.title);
+    const parent = target.parentElement?.parentElement;
+    const btn = parent?.querySelector('button');
+    if (parent?.ariaLabel === 'selectBlock' && btn) {
+      attrAray.unshift(btn.title);
+      addParentAttr(btn, attrAray);
+    };
+    dispatch(setAttribute(attrAray));
+    dispatch(setSelectedItem(target.id));
+  };
+
+  function addParentAttr(elem: HTMLElement, attrAray: Array<string>){
+    const parent = elem.parentElement?.parentElement?.parentElement;
+    const btn = parent?.querySelector('button');
+    if (parent?.ariaLabel === 'selectBlock' && btn) {
+      attrAray.unshift(btn.title);
+      addParentAttr(btn, attrAray);
+    };
   };
 
   return (
@@ -41,8 +59,8 @@ export function MultilevelSelect({ items}: Readonly<IMultilevelSelect>) {
         {items.map((item) => {
             if (item.children){
               return (
-                <div key={generateRandomString()} className={styles.selectBlock}>
-                  <button id={item.id}  className={styles.selectBtn} onClick={handleClickOpen}>
+                <div aria-label='selectBlock' key={generateRandomString()} className={styles.selectBlock}>
+                  <button title={item.name} id={item.id}  className={styles.selectBtn} onClick={handleClickOpen}>
                     <span className={styles.selectText}>{item.name}</span>
                     <span className={openAttr.indexOf(item.id)>=0 ? styles.rotate : undefined}>
                       <svg width="14" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +72,7 @@ export function MultilevelSelect({ items}: Readonly<IMultilevelSelect>) {
               </div>
               )
             } else {
-              return <div key={generateRandomString()} id={item.id} title={item.attr?.join('+')} className={attribute.join('+')===item.attr?.join('+') ? styles.selectedItem : styles.item} onClick={handleClickAttribute}>
+              return <div key={generateRandomString()} id={item.id} title={item.name} className={selectedItem===item.id ? styles.selectedItem : styles.item} onClick={handleClickAttribute}>
                 {item.name}
               </div>
             }
