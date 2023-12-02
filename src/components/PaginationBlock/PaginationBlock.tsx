@@ -3,10 +3,11 @@ import styles from './paginationblock.css';
 import { ActBtn } from '../ActBtn';
 import { Select } from '../Select';
 import { FilterInput } from '../FilterInput';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { IRootState, useAppDispatch } from '../../redux/redux-store';
 import { useSelector } from 'react-redux';
 import { setOffset, setPage, setPageSize } from '../../redux/table/table-reducer';
+import { setFilter } from '../../redux/templates/templates-reducer';
 
 export function PaginationBlock() {
 
@@ -55,7 +56,7 @@ export function PaginationBlock() {
       setSearchParams(searchParams);
     }else if(event.target.value){
       dispatch(setOffset((Number(event.target.value)-1) * pageSize));
-    };
+    }
   };
 
   function handlePageSize(event: React.MouseEvent<HTMLButtonElement>) {
@@ -63,6 +64,7 @@ export function PaginationBlock() {
     localStorage.setItem('pageSize', event.currentTarget.value);
     dispatch(setPage('1'));
     dispatch(setOffset(0));
+    dispatch(setFilter(''));
   };
 
   return (

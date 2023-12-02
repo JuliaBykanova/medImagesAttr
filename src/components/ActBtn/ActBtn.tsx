@@ -38,12 +38,12 @@ export function ActBtn({text, type, handlePagination, isDisabled}: Readonly<IAct
       "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
       "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
       "ngrok-skip-browser-warning": "69420", 
-      "X-User-Id": "3",
     },
   };
 
   const body = {
     "attributes": attribute,
+    "email": "string",
   }
 
   function handleClickLoad(){
@@ -51,7 +51,7 @@ export function ActBtn({text, type, handlePagination, isDisabled}: Readonly<IAct
   };
 
   function handleClickSave(){
-    axios.post(`https://9500-85-143-112-90.ngrok-free.app/image/update/${name}`, body, config)
+    axios.post(`https://bb62-85-143-112-84.ngrok-free.app/image/update/${name}`, body, config)
     .then(() => {
       dispatch(setClearAttr());
       navigate('/templates');

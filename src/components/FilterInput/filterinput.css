@@ -35,15 +35,6 @@
   width: 300px;
 }
 
-.labelSmall:not(:last-child){
-  margin-right: 0;
-  margin-bottom: 6px;
-}
-
-.labelSmall:not(:nth-child(4n)){
-  margin-right: 20px;
-}
-
 .text{
   margin-bottom: 4px;
   font-size: 15px;

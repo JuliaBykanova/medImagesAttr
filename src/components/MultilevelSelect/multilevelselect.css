@@ -21,9 +21,6 @@
 }
 
 .selectedItem{
-  width: 100%;
-  padding: 4px;
-  border-radius: 8px;
   background-color: var(--light-blue);
 }
 

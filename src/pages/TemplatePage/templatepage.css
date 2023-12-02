@@ -11,6 +11,9 @@
 }
 
 .flterBlock{
+  display: flex;
+  align-items: flex-end;
+  gap: 30px;
   margin-bottom: 20px;
 }
 

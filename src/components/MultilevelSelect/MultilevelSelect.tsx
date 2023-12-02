@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { IRootState, useAppDispatch } from '../../redux/redux-store';
 import { setAttribute, setOpenAttr, setSelectedItem } from '../../redux/templates/templates-reducer';
 import { generateRandomString } from '../../utils/generateRandomIndex';
+import classNames from 'classnames';
 
 export interface ISelectItem{
   id: string;
@@ -72,7 +73,7 @@ export function MultilevelSelect({ items}: Readonly<IMultilevelSelect>) {
               </div>
               )
             } else {
-              return <div key={generateRandomString()} id={item.id} title={item.name} className={selectedItem===item.id ? styles.selectedItem : styles.item} onClick={handleClickAttribute}>
+              return <div key={generateRandomString()} id={item.id} title={item.name} className={selectedItem===item.id ? classNames(styles.selectedItem, styles.item) : styles.item} onClick={handleClickAttribute}>
                 {item.name}
               </div>
             }

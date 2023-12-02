@@ -35,6 +35,7 @@ export interface IInitialStateTemplates{
   openAttr: string[];
   filter: string;
   selectedItem: string;
+  isMarked: string;
 }
 
 export interface ITemplate{

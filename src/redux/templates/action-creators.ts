@@ -4,9 +4,9 @@ import { setBodyRows, setHeadItems, setPagination } from '../table/table-reducer
 import { templatesAPI } from '../../api/attributeAPI';
 import { setTemplates } from './templates-reducer';
 
-export const getTemplates = (limit: number, offset: number, filter?: string) => async (dispatch: Dispatch) => {
+export const getTemplates = (limit: number, offset: number, isMarked: string, filter?: string) => async (dispatch: Dispatch) => {
   try {
-    const res = await templatesAPI.getTemplatesData(limit, offset, filter);
+    const res = await templatesAPI.getTemplatesData(limit, offset, isMarked, filter);
     const result: ITemplate[] = [];
     const bodyRows: IRow[] = [];
     for (let temlate of res.data){

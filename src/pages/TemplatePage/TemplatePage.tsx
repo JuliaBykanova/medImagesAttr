@@ -3,17 +3,18 @@ import styles from './templatepage.css';
 import { useParams } from 'react-router-dom';
 import { Table } from '../../components/Table';
 import { Header } from '../../components/Header';
-import { setBodyRows, setHeadItems, setIsLink, setOffset, setType } from '../../redux/table/table-reducer';
+import { setBodyRows, setHeadItems, setIsLink, setOffset, setPage, setType } from '../../redux/table/table-reducer';
 import { IRootState, useAppDispatch } from '../../redux/redux-store';
 import { useSelector } from 'react-redux';
 import { PaginationBlock } from '../../components/PaginationBlock';
 import { IRow } from '../../redux/types';
 import { TemplateDetails } from './TemplateDetails';
-import { setClearAttr, setFilter, setTemplate } from '../../redux/templates/templates-reducer';
+import { setClearAttr, setFilter, setIsMarked, setTemplate } from '../../redux/templates/templates-reducer';
 import { ISelectItem, MultilevelSelect } from '../../components/MultilevelSelect';
 import { ActBtn } from '../../components/ActBtn';
 import { FilterInput } from '../../components/FilterInput';
 import { getTemplates } from '../../redux/templates/action-creators';
+import { Select } from '../../components/Select';
 
 export function TemplatePage() {
 
@@ -22,7 +23,7 @@ export function TemplatePage() {
 
   const {page, pageSize, offset, headItems, bodyRows} = useSelector((state: IRootState) => state.table);
 
-  const selectItems: ISelectItem[]=[
+  const mulriSelectItems: ISelectItem[]=[
       {
         id: '1', 
         name: 'Один признак',
@@ -1165,11 +1166,11 @@ export function TemplatePage() {
     dispatch(setIsLink(true));
   }, []);
 
-  const {templates, filter} = useSelector((state: IRootState) => state.templates);
+  const {templates, filter, attribute, isMarked} = useSelector((state: IRootState) => state.templates);
 
   useEffect(() => {
-    dispatch(getTemplates(pageSize, offset, filter));
-  }, [pageSize, offset, filter])
+    dispatch(getTemplates(pageSize, offset, isMarked, filter));
+  }, [pageSize, offset, filter, attribute, isMarked])
 
   useEffect(() => {
     const template = templates.find(item => item.name===idParam);
@@ -1177,14 +1178,27 @@ export function TemplatePage() {
     dispatch(setClearAttr());
   }, [idParam]);
 
+  const selectItems = [
+    {value: '', name: 'Все'},
+    {value: 'true', name: 'Размеченные'},
+    {value: 'false', name: 'Неразмеченные'},
+  ];
+
   function handleChangeFilter(event: ChangeEvent<HTMLInputElement>){
     dispatch(setFilter(event.currentTarget.value));
+    dispatch(setPage('1'));
+    dispatch(setOffset(0));
+  };
+
+  function handleSelectIsMarked(event: React.MouseEvent<HTMLButtonElement>) {
+    dispatch(setIsMarked(event.currentTarget.value));
   };
 
   return (
       <div className={styles.container}>
         <Header title='Работа с изображениями'/>
         <div className={styles.flterBlock}>
+          <Select items={selectItems} onClick={handleSelectIsMarked} currentValue={isMarked} name='isMarked' label='Выберите тип изображений:'/>
           <FilterInput value={filter} onChange={handleChangeFilter} type='text' name='name' text='Введите название изображения' isSmall/>
         </div>
         <PaginationBlock/>
@@ -1192,7 +1206,7 @@ export function TemplatePage() {
           <Table rows={bodyRows} items={headItems}/>
           {idParam && 
             <div className={styles.attrBlock}>
-              <MultilevelSelect items={selectItems}/>
+              <MultilevelSelect items={mulriSelectItems}/>
               <ActBtn text='Сохранить' type='save'/>
             </div>
           }
