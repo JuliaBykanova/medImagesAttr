@@ -1,0 +1,17 @@
+/* Стили для успешного сообщения */
+.successMessage {
+    background-color: #4CAF50; /* Зеленый цвет фона */
+    color: white; /* Белый цвет текста */
+    padding: 15px; /* Отступы внутри блока */
+    border-radius: 5px; /* Закругленные углы */
+    margin-top: 10px; /* Отступ сверху */
+}
+
+/* Стили для сообщения об ошибке */
+.errorMessage {
+    background-color: #f44336; /* Красный цвет фона */
+    color: white; /* Белый цвет текста */
+    padding: 15px; /* Отступы внутри блока */
+    border-radius: 5px; /* Закругленные углы */
+    margin-top: 10px; /* Отступ сверху */
+}
