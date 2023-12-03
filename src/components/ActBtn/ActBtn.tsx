@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { IRootState, useAppDispatch } from '../../redux/redux-store';
 import { setClearAttr } from '../../redux/templates/templates-reducer';
 import { useNavigate } from 'react-router';
+import { templatesAPI } from '../../api/attributeAPI';
 
 interface IActBtn{
   text: string;
@@ -52,8 +53,8 @@ export function ActBtn({text, type, handlePagination, isDisabled}: Readonly<IAct
     location.reload(); 
   };
 
-  function handleClickSave(){
-    axios.post(`https://bb62-85-143-112-84.ngrok-free.app/image/update/${name}`, body, config)
+  async function handleClickSave(){
+    await templatesAPI.postTemplatesData(name, body)
     .then(() => {
       dispatch(setClearAttr());
       navigate('/templates');
