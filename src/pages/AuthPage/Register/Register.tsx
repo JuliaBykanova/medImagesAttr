@@ -7,14 +7,15 @@ import { MessageComponent } from '../../../components/MessageComponent';
 import { AuthBtn } from '../../../components/AuthBtn';
 import styles from './Register.css';
 import { loginSuccess, loginFailure, resetAuthMessage } from '../../../redux/auth/authActions';
+import { IRootState } from '../../../redux/redux-store';
 
 export const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { lastName, firstName, patronymic, email, password } = useSelector(
-        (state: any) => state.user
+        (state: IRootState) => state.user
     );
-    const { message, messageType } = useSelector((state: any) => state.auth);
+    const { message, messageType } = useSelector((state: IRootState) => state.auth);
 
     useEffect(() => {
         dispatch(resetAuthMessage());
@@ -109,7 +110,7 @@ export const Register = () => {
                     />
                     <AuthBtn onClick={handleRegister} label="Зарегистрироваться" />
                 </form>
-                <Link to="/" className={styles.linkStyle}>
+                <Link to="/login" className={styles.linkStyle}>
                     Уже есть аккаунт? Войти
                 </Link>
             </div>

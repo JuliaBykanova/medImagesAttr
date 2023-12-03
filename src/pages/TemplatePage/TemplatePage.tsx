@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect }  from 'react';
 import styles from './templatepage.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Table } from '../../components/Table';
 import { Header } from '../../components/Header';
 import { setBodyRows, setHeadItems, setIsLink, setOffset, setPage, setType } from '../../redux/table/table-reducer';
@@ -20,8 +20,10 @@ export function TemplatePage() {
 
   const {idParam} = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const {page, pageSize, offset, headItems, bodyRows} = useSelector((state: IRootState) => state.table);
+  const messageType = useSelector((state: IRootState) => state.auth.messageType);
 
   const mulriSelectItems: ISelectItem[]=[
       {
@@ -1161,6 +1163,7 @@ export function TemplatePage() {
   ];
 
   useEffect(() => {
+    messageType!=='success' && navigate('/login');
     dispatch(setOffset((Number(page)-1) * pageSize));
     dispatch(setType('templates'));
     dispatch(setIsLink(true));

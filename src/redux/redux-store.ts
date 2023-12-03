@@ -2,11 +2,15 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import tableReducer from './table/table-reducer';
 import templatesReducer from './templates/templates-reducer';
+import userReducer from './user/userReducer';
+import authReducer from './auth/authReducer';
 
 export const store = configureStore({
   reducer: {
     templates: templatesReducer,
     table: tableReducer,
+    user: userReducer,
+    auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware(),

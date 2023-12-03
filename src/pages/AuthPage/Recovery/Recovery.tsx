@@ -7,12 +7,13 @@ import { MessageComponent } from '../../../components/MessageComponent';
 import { AuthBtn } from '../../../components/AuthBtn';
 import { setUserInfo } from '../../../redux/user/userActions';
 import { loginSuccess, loginFailure, resetAuthMessage } from '../../../redux/auth/authActions';
+import { IRootState } from '../../../redux/redux-store';
 
 export function Recovery() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { email } = useSelector((state: any) => state.user); // Use Redux store for email
-    const { message, messageType } = useSelector((state: any) => state.auth);
+    const { email } = useSelector((state: IRootState) => state.user); // Use Redux store for email
+    const { message, messageType } = useSelector((state: IRootState) => state.auth);
 
     useEffect(() => {
         dispatch(resetAuthMessage());
