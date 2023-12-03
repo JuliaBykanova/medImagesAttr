@@ -20,6 +20,7 @@ export function ActBtn({text, type, handlePagination, isDisabled}: Readonly<IAct
 
   const attribute = useSelector((state: IRootState) => state.templates.attribute);
   const name = useSelector((state: IRootState) => state.templates.template.name);
+  const token = localStorage.getItem("accessToken");
 
   const classes = classNames(
     { 
@@ -38,6 +39,7 @@ export function ActBtn({text, type, handlePagination, isDisabled}: Readonly<IAct
       "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
       "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
       "ngrok-skip-browser-warning": "69420", 
+      Authorization: `Bearer ${token}`,
     },
   };
 
