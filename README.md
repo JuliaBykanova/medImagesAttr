@@ -7,6 +7,7 @@
 
 
 ##headers with auth token
+```
 headers: {
       "accept": "application/json",
       "Access-Control-Allow-Origin": "*",
@@ -15,4 +16,4 @@ headers: {
       "ngrok-skip-browser-warning": "69420", 
       Authorization: `Bearer ${token}`,
     },
-
+```
